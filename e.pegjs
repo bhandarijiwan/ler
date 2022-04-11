@@ -154,7 +154,7 @@ whitespace =
   [ \t\n\r]
 
 where_clause
-    = __ e:expr { return e; }
+    = __ e:expr __ { return e; }
 
 expr = or_expr
 
@@ -191,7 +191,7 @@ comparison_expr
 //optimization for comparison judge, bug because we in use `additive` expr
 //in column clause now , it have little effect
 cmp_prefix_char
-  = c:char &{ debug(c); return cmpPrefixMap[c]; }
+  = c:char &{ return cmpPrefixMap[c]; }
 
 comparison_op_right 
   = &cmp_prefix_char  body:(
@@ -241,7 +241,7 @@ contains_op
   / KW_CONTAINS
 
 like_op_right
-  = op:like_op __ right:comparison_expr {
+  = op:like_op __ right:literal_string {
       return {
         op    : op,
         right : right

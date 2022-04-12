@@ -9,7 +9,7 @@ function parserGen() {
      }
     try {
         const parser = peg.generate(grammar1, options);
-        const parseResult = parser.parse('svmxc__service_order__c.name = "hello" and name like "%hello%" ')
+        const parseResult = parser.parse('name = "john" and (svmxc__service_order__c.name = "hello" or name like "%hello%")')
         console.log("Parse result", parseResult);
     } catch (e) {
         console.error(e)

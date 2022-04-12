@@ -172,11 +172,12 @@ not_expr
   = (KW_NOT / "!" !"=") __ expr:not_expr {
       return createUnaryExpr('NOT', expr);
     }
+  / LPAREN __ e:comparison_expr __ RPAREN { return e; }
   / comparison_expr
 
 comparison_expr
   = left:additive_expr __ rh:comparison_op_right? {
-      if (rh == '') {
+      if (!rh) {
         return left;  
       } else {
         var res = null;
